@@ -64,10 +64,10 @@ export function Header() {
             <Image
               src={companyData.logoPath}
               alt="Aaliis Pharmaceuticals - B2B PCD Pharma Partner"
-              width={150}
-              height={100}
+              width={160}
+              height={107}
               priority
-              className="h-10 sm:h-11 w-auto object-contain transition-transform duration-200"
+              className="w-[66px] sm:w-[72px] lg:w-[80px] h-auto object-contain transition-transform duration-200"
             />
           </Link>
 
