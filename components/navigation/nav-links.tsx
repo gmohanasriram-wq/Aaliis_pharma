@@ -5,11 +5,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 interface NavLinksProps {
   className?: string;
   itemClassName?: string;
   onItemClick?: () => void;
+  /**
+   * Namespaces the two shared-layout ids below.
+   *
+   * The header renders NavLinks twice — once in the desktop bar, once inside the
+   * mobile panel — and while the panel is open both are mounted at the same time.
+   * Framer Motion resolves a `layoutId` across the whole tree, so two elements
+   * sharing one id animate against each other and the pill lands in the wrong
+   * nav. Each instance must therefore pass its own prefix.
+   */
+  idPrefix: string;
 }
 
 export const navItems = [
@@ -25,8 +36,10 @@ export function NavLinks({
   className,
   itemClassName,
   onItemClick,
+  idPrefix,
 }: NavLinksProps) {
   const pathname = usePathname();
+  const prefersReduced = usePrefersReducedMotion();
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
 
   return (
@@ -58,8 +71,12 @@ export function NavLinks({
             {/* Subtle hover backdrop */}
             {hoveredHref === item.href && !isActive && (
               <motion.div
-                layoutId="nav-hover-pill"
-                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                layoutId={`${idPrefix}-nav-hover-pill`}
+                transition={
+                  prefersReduced
+                    ? { duration: 0 }
+                    : { type: "spring", stiffness: 400, damping: 30 }
+                }
                 className="absolute inset-0 rounded-md bg-slate-100/80 -z-0"
               />
             )}
@@ -67,8 +84,12 @@ export function NavLinks({
             {/* Active indicator underline */}
             {isActive && (
               <motion.div
-                layoutId="nav-active-indicator"
-                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                layoutId={`${idPrefix}-nav-active-indicator`}
+                transition={
+                  prefersReduced
+                    ? { duration: 0 }
+                    : { type: "spring", stiffness: 380, damping: 30 }
+                }
                 className="absolute bottom-0 left-2 right-2 h-0.5 bg-gradient-to-r from-brand-forest-600 to-brand-teal-500 rounded-full"
               />
             )}

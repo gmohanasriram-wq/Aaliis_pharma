@@ -3,6 +3,11 @@ import Link from "next/link";
 import { FadeIn } from "@/components/motion/fade-in";
 import { companyData } from "@/data/company";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { Card, CardTitle } from "@/components/ui/card";
 
 export function CompanyIntro() {
   const commitments = [
@@ -37,8 +42,8 @@ export function CompanyIntro() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-white border-b border-slate-200/90 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section id="company-intro">
+      <Container>
 
         {/* Editorial Header & Manifesto Split */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -46,12 +51,10 @@ export function CompanyIntro() {
           {/* Left Column: Bold Editorial Narrative (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             <FadeIn direction="up">
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                Institutional Profile
-              </span>
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08] text-balance">
+              <Eyebrow>Institutional Profile</Eyebrow>
+              <Heading level="h2" className="mt-3">
                 Built on Statutory Discipline &amp; Channel Integrity.
-              </h2>
+              </Heading>
             </FadeIn>
 
             <FadeIn direction="up" delay={0.1}>
@@ -89,16 +92,14 @@ export function CompanyIntro() {
                         <span className="font-mono text-xl sm:text-2xl font-black text-brand-forest-900/70 group-hover:text-brand-forest-800 transition-colors">
                           {item.num}
                         </span>
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500">
+                        <span className="text-micro-lg font-mono uppercase tracking-wider text-slate-500">
                           {item.meta}
                         </span>
                       </div>
 
                       {/* Content */}
                       <div className="sm:col-span-8">
-                        <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 group-hover:text-brand-forest-900 transition-colors">
-                          {item.title}
-                        </h3>
+                        <CardTitle className="mb-2">{item.title}</CardTitle>
                         <p className="text-sm text-slate-600 leading-relaxed">
                           {item.description}
                         </p>
@@ -111,18 +112,18 @@ export function CompanyIntro() {
             </div>
 
             {/* Micro-statement banner */}
-            <div className="mt-8 flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-600">
+            <Card variant="note" className="mt-8 flex items-center gap-3">
               <CheckCircle2 className="w-4 h-4 text-brand-forest-700 shrink-0" />
               <span>
                 Zero direct-to-patient retail dispensing. All commercial inquiries require active Form 20B/21B wholesale credentials.
               </span>
-            </div>
+            </Card>
 
           </div>
 
         </div>
 
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

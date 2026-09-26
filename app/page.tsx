@@ -15,7 +15,7 @@ import { ContactOverview } from "@/components/sections/contact-overview";
 export const metadata: Metadata = {
   title: "PCD Pharma Company in Tamil Nadu | Wholesale & Institutional Supply",
   description:
-    "Aaliis Pharmaceuticals is a B2B PCD pharma distributor supplying 19 verified formulations across Tamil Nadu to pharmacies, hospitals, and medical distributors.",
+    "Aaliis Pharmaceuticals is a B2B PCD pharma distributor supplying 20 verified formulations across Tamil Nadu to pharmacies, hospitals, and medical distributors.",
   alternates: {
     canonical: "/",
   },
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: companyData.logoPath,
-        width: 1024,
-        height: 682,
+        width: 612,
+        height: 408,
         alt: `${companyData.tradeName} Logo`,
       },
     ],

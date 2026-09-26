@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { companyData } from "@/data/company";
 import { BusinessType } from "@/types";
 
 const ALLOWED_BUSINESS_TYPES: BusinessType[] = [

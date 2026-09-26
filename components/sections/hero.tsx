@@ -3,19 +3,17 @@
 import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useReducedMotion,
-} from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { Button } from "@/components/ui/button";
 import { companyData } from "@/data/company";
 import { ArrowRight } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Heading } from "@/components/ui/heading";
 
 /**
  * Minimalist Ruled Horizontal Index Ledger Items
- * Strictly using verified operational facts (Form 20B/21B, Tamil Nadu distribution, 19 formulations)
+ * Strictly using verified operational facts (Form 20B/21B, Tamil Nadu distribution, 20 formulations)
  */
 const ledgerItems = [
   {
@@ -33,13 +31,13 @@ const ledgerItems = [
   {
     id: "03",
     title: "PRODUCT PORTFOLIO",
-    subtitle: "19 Formulations",
+    subtitle: "20 Formulations",
     href: "#products",
   },
 ];
 
 export function Hero() {
-  const prefersReduced = useReducedMotion();
+  const prefersReduced = usePrefersReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
 
   // Mouse Parallax for packaging stage & fluid ribbon (calm, intentional, restrained amplitude)
@@ -70,11 +68,13 @@ export function Hero() {
   };
 
   return (
-    <section
+    <Container
+      as="section"
+      width="wide"
       ref={heroRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full py-4 sm:py-6 lg:py-8 px-3 sm:px-6 lg:px-8 max-w-[1520px] mx-auto overflow-hidden"
+      className="relative w-full py-4 sm:py-6 lg:py-8 overflow-hidden px-3"
     >
       {/* ARCHITECTURAL LUXURY VIEWPORT CONTAINER */}
       <div className="relative rounded-[22px] xs:rounded-[26px] sm:rounded-[32px] lg:rounded-[38px] border border-slate-200/85 bg-[#F6F8FA] shadow-[0_20px_50px_-15px_rgba(2,74,68,0.05)] overflow-hidden p-5 xs:p-7 sm:p-9 lg:p-11 xl:p-12">
@@ -257,20 +257,22 @@ export function Hero() {
         {/* INNER CONTENT LAYER */}
         <div className="relative z-10">
 
-          {/* TOP MINIMAL STATUTORY COORDINATES BAR */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:gap-4 pb-4 sm:pb-5 border-b border-slate-200/70 text-[10px] sm:text-[11px] font-mono tracking-wider text-slate-500 uppercase">
-            <div className="flex flex-wrap items-center gap-2">
+          {/* TOP MINIMAL STATUTORY COORDINATES BAR
+              Each separator is a `before:` pseudo-element on the item that
+              FOLLOWS it, not a span of its own. At 1024 the two groups wrap
+              internally, and a standalone separator is left stranded at the end
+              of the previous line while the text it divides starts the next one.
+              Glued to the following item it can never be orphaned at any width. */}
+          <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-2.5 xl:gap-4 pb-4 sm:pb-5 border-b border-slate-200/70 text-micro sm:text-micro-lg font-mono tracking-wider text-slate-500 uppercase">
+            <div className="flex flex-wrap items-center">
               <span className="font-bold text-brand-forest-950">AALIIS PHARMACEUTICALS</span>
-              <span className="text-slate-300">/</span>
-              <span className="text-slate-600 font-medium">B2B PCD &amp; WHOLESALE DISTRIBUTION</span>
-              <span className="text-slate-300">/</span>
-              <span className="text-slate-600 font-medium">TAMIL NADU</span>
+              <span className="text-slate-600 font-medium before:content-['/'] before:mx-2">B2B PCD &amp; WHOLESALE DISTRIBUTION</span>
+              <span className="text-slate-600 font-medium before:content-['/'] before:mx-2">TAMIL NADU</span>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-slate-600 font-medium">
+            <div className="flex flex-wrap items-center text-slate-600 font-medium">
               <span>FORM 20B &amp; 21B LICENSED TN/205/20B/00848</span>
-              <span className="text-slate-300">•</span>
-              <span>GSTIN: {companyData.gstin}</span>
+              <span className="before:content-['•'] before:mx-2 sm:before:mx-3">GSTIN: {companyData.gstin}</span>
             </div>
           </div>
 
@@ -282,33 +284,33 @@ export function Hero() {
               <div>
                 {/* Technical Annotation Index Element */}
                 <div className="flex items-center gap-3 mb-4 sm:mb-5">
-                  <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                    PORTFOLIO INDEX / 19 FORMULATIONS
+                  <span className="text-micro sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
+                    PORTFOLIO INDEX / 20 FORMULATIONS
                   </span>
-                  <span className="h-px w-8 bg-slate-300" aria-hidden="true" />
-                  <span className="text-[10px] sm:text-xs font-mono text-slate-500 uppercase tracking-widest hidden xs:inline">
+                  <span className="h-px w-8 bg-slate-400" aria-hidden="true" />
+                  <span className="text-micro sm:text-xs font-mono text-slate-600 uppercase tracking-widest hidden xs:inline">
                     WHOLESALE &amp; PCD DISTRIBUTION
                   </span>
                 </div>
 
                 {/* Primary Brand Statement (Dominant visual anchor, natural responsive wrapping) */}
-                <h1 className="text-[2rem] xs:text-[2.5rem] sm:text-4xl md:text-5xl lg:text-[3.75rem] xl:text-[4.5rem] font-black tracking-tight text-slate-900 leading-[1.02] text-balance">
+                <Heading level="display">
                   <span className="block text-slate-900">BUILT TO MOVE</span>
                   <span className="block text-brand-forest-900">
                     <span className="block sm:inline">HEALTHCARE </span>
                     <span className="block sm:inline">FORWARD.</span>
                   </span>
-                </h1>
+                </Heading>
 
                 {/* Secondary Business Description — Factual B2B Positioning */}
                 <p className="mt-4 sm:mt-5 text-xs sm:text-sm font-mono font-bold uppercase tracking-[0.12em] text-slate-700">
                   <span>B2B PCD &amp; Wholesale Distribution</span>
-                  <span className="block sm:inline sm:before:content-['•'] sm:before:mx-2 text-slate-500">Across Tamil Nadu</span>
+                  <span className="block sm:inline sm:before:content-['•'] sm:before:mx-2 text-slate-600">Across Tamil Nadu</span>
                 </p>
 
                 {/* Editorial Subtitle with Disciplined Scope */}
                 <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 max-w-xl leading-relaxed">
-                  {companyData.legalName} is an authorized B2B wholesale pharmaceutical distributor operating across Tamil Nadu under Form 20B and 21B licences. We supply 19 verified commercial formulations strictly to registered pharmacies, hospitals, and licensed distributors—maintaining disciplined institutional supply with zero retail operations.
+                  {companyData.legalName} is an authorized B2B wholesale pharmaceutical distributor operating across Tamil Nadu under Form 20B and 21B licences. We supply 20 verified commercial formulations strictly to registered pharmacies, hospitals, and licensed distributors—maintaining disciplined institutional supply with zero retail operations.
                 </p>
 
                 {/* Primary & Secondary Actions (Clean, dignified CTAs) */}
@@ -317,9 +319,9 @@ export function Hero() {
                     href="/products"
                     variant="primary"
                     size="lg"
-                    className="bg-brand-forest-900 hover:bg-brand-forest-800 text-white px-6 py-3.5 text-xs sm:text-sm font-bold tracking-wide shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2.5 rounded-xl group"
+                    className="px-6 py-3.5 text-xs sm:text-sm font-bold tracking-wide shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2.5 rounded-xl group"
                   >
-                    <span>Explore 19 Formulations</span>
+                    <span>Explore 20 Formulations</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                   </Button>
 
@@ -327,7 +329,7 @@ export function Hero() {
                     href="/business-enquiry"
                     variant="outline"
                     size="lg"
-                    className="border-slate-300 bg-white/80 hover:bg-white text-slate-800 hover:border-slate-400 px-5 py-3.5 text-xs sm:text-sm font-semibold transition-all rounded-xl shadow-2xs"
+                    className="bg-white/80 hover:bg-white hover:border-slate-400 px-5 py-3.5 text-xs sm:text-sm font-semibold transition-all rounded-xl shadow-2xs"
                   >
                     Business Enquiry
                   </Button>
@@ -371,14 +373,14 @@ export function Hero() {
                 <div className="mt-4 sm:mt-5 text-center">
                   <div className="flex items-center justify-center gap-2">
                     <span className="font-mono text-xs font-bold text-slate-900 tracking-wider">
-                      MAXYCOD<sup className="text-[9px] font-semibold text-slate-500">®</sup>
+                      MAXYCOD<sup className="text-[9px] font-semibold text-slate-600">®</sup>
                     </span>
-                    <span className="text-slate-300">•</span>
-                    <span className="font-mono text-[11px] text-slate-600 font-medium">
+                    <span className="text-slate-600">•</span>
+                    <span className="font-mono text-micro-lg text-slate-600 font-medium">
                       Pure Fish Oil Concentrate
                     </span>
                   </div>
-                  <p className="font-mono text-[10px] text-slate-600 mt-0.5 tracking-wide font-medium">
+                  <p className="font-mono text-micro text-slate-600 mt-0.5 tracking-wide font-medium">
                     EPA 360 mg + DHA 240 mg • 10 × 1 × 10 Softgels
                   </p>
                 </div>
@@ -387,10 +389,10 @@ export function Hero() {
               {/* MINIMALIST RULED ARCHITECTURAL INFORMATION LEDGER (Editorial precision, verified facts only) */}
               <div className="w-full pt-4 sm:pt-5 border-t border-slate-200/80">
                 <div className="flex items-center justify-between pb-2 mb-0.5 border-b border-slate-200/60">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-slate-600">
+                  <span className="text-micro font-mono font-bold uppercase tracking-[0.2em] text-slate-600">
                     Institutional Specification
                   </span>
-                  <span className="text-[10px] font-mono text-slate-600 tracking-wider font-medium">
+                  <span className="text-micro font-mono text-slate-600 tracking-wider font-medium">
                     INDEX 01—03
                   </span>
                 </div>
@@ -424,6 +426,6 @@ export function Hero() {
         </div>
 
       </div>
-    </section>
+    </Container>
   );
 }

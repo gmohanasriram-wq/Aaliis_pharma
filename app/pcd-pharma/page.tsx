@@ -4,6 +4,10 @@ import { companyData } from "@/data/company";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Button } from "@/components/ui/button";
 import { ShieldCheck, MapPin, Award, CheckCircle2, ArrowRight } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
   title: "PCD Pharma Franchise in Tamil Nadu",
@@ -23,8 +27,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: companyData.logoPath,
-        width: 1024,
-        height: 682,
+        width: 612,
+        height: 408,
         alt: `${companyData.tradeName} PCD Pharma Franchise`,
       },
     ],
@@ -40,17 +44,15 @@ export const metadata: Metadata = {
 
 export default function PcdPharmaPage() {
   return (
-    <div className="py-16 sm:py-20 bg-white min-h-screen border-b border-slate-200/90">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <Section as="div" density="compact" className="min-h-screen">
+      <Container width="narrow" className="space-y-16">
         {/* Header */}
         <FadeIn direction="up">
           <div className="max-w-3xl">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-              B2B Franchise &amp; Distribution Architecture
-            </span>
-            <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+            <Eyebrow>B2B Franchise &amp; Distribution Architecture</Eyebrow>
+            <Heading level="h1" className="mt-3">
               PCD Pharma Franchise in Tamil Nadu
-            </h1>
+            </Heading>
             <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
               Aaliis Pharmaceuticals invites wholesale distributors, pharma sales professionals, and institutional stockists to partner with us under our PCD (Propaganda Cum Distribution) franchise model across all 38 districts of Tamil Nadu.
             </p>
@@ -60,10 +62,10 @@ export default function PcdPharmaPage() {
         {/* 4 Strategic Pillars */}
         <FadeIn direction="up" delay={0.1}>
           <div className="space-y-4">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800 flex items-center gap-2">
+            <Eyebrow as="h2" className="flex items-center gap-2">
               <Award className="w-4 h-4 text-brand-teal-600" />
               <span>Franchise Commercial Pillars</span>
-            </h2>
+            </Eyebrow>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="p-6 rounded-2xl border border-slate-200/90 bg-slate-50/60 shadow-xs hover:border-brand-forest-800 transition-colors">
                 <div className="flex items-center gap-3 text-slate-900 font-bold text-base">
@@ -85,7 +87,7 @@ export default function PcdPharmaPage() {
                   <span>Verified Formulations</span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
-                  19 commercially active formulations across analgesics, gastrointestinal, neuro, respiratory, and antimicrobial segments manufactured under WHO-GMP and ISO certified partner facilities.
+                  20 commercially active formulations across analgesics, gastrointestinal, neuro, respiratory, and antimicrobial segments manufactured under WHO-GMP and ISO certified partner facilities.
                 </p>
               </div>
 
@@ -119,10 +121,10 @@ export default function PcdPharmaPage() {
         {/* Partner Eligibility Ledger */}
         <FadeIn direction="up" delay={0.15}>
           <div className="space-y-4">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800 flex items-center gap-2">
+            <Eyebrow as="h2" className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-brand-teal-600" />
               <span>Statutory Qualification &amp; Compliance Standards</span>
-            </h2>
+            </Eyebrow>
             <div className="p-6 sm:p-8 rounded-2xl border border-slate-200/90 bg-slate-50/60 space-y-4">
               <h3 className="text-base font-bold text-slate-900">
                 Franchise Partner Eligibility Criteria
@@ -179,7 +181,7 @@ export default function PcdPharmaPage() {
             </div>
           </div>
         </FadeIn>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }

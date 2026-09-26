@@ -2,27 +2,33 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { companyData } from "@/data/company";
-import { ShieldCheck, MapPin, Phone, Mail, FileCheck, ArrowUpRight } from "lucide-react";
+import { ShieldCheck, MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
+import { Container } from "@/components/ui/container";
 
 export function Footer() {
   return (
     <footer className="bg-brand-navy-950 text-slate-300 border-t border-slate-800/80">
       {/* Upper Footer: Main Coordinates & Links */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-16">
+      <Container className="py-14 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
 
           {/* Col 1: Brand & Positioning (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
+            {/* Logo sits on a light plate: its green ink measures 2.78:1 against the
+                navy footer, which fails WCAG. No dark surface can reach 4.5:1 for this
+                ink, so the surface changes rather than the asset. #F6F8FA is the hero's
+                existing panel tone (5.79:1) — the dossier panel continuing into the
+                footer. The logo file itself is untouched. */}
             <Link
               href="/"
-              className="inline-block bg-white p-2.5 rounded-xl shadow-sm hover:opacity-95 transition-opacity"
+              className="inline-flex items-center rounded-lg bg-[#F6F8FA] border border-slate-200/80 px-3 py-2 hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-brand-teal-500"
             >
               <Image
                 src={companyData.logoPath}
-                alt="Aaliis Pharmaceuticals - B2B PCD Pharma Partner"
-                width={150}
-                height={100}
-                className="h-10 w-auto object-contain"
+                alt="Aaliis Pharmaceutical"
+                width={1536}
+                height={1024}
+                className="h-11 sm:h-12 w-auto object-contain"
               />
             </Link>
 
@@ -35,7 +41,7 @@ export function Footer() {
               <span>B2B PCD Pharma Partner — Tamil Nadu</span>
             </div>
 
-            <div className="text-[11px] text-slate-400">
+            <div className="text-micro-lg text-slate-400">
               Coverage: <span className="text-slate-300 font-medium">{companyData.operationalArea}</span>
             </div>
           </div>
@@ -48,7 +54,7 @@ export function Footer() {
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <Link href="/products" className="hover:text-white transition-colors">
-                  All 19 Formulations
+                  All 20 Formulations
                 </Link>
               </li>
               <li>
@@ -123,7 +129,7 @@ export function Footer() {
             <div className="space-y-2.5 text-xs text-slate-400">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-brand-teal-400 shrink-0 mt-0.5" />
-                <span className="text-[11px] leading-snug">{companyData.principalAddress}</span>
+                <span className="text-micro-lg leading-snug">{companyData.principalAddress}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-brand-teal-400 shrink-0" />
@@ -143,7 +149,7 @@ export function Footer() {
                   {companyData.email}
                 </a>
               </div>
-              <div className="pt-2 border-t border-slate-800 text-[11px] space-y-1">
+              <div className="pt-2 border-t border-slate-800 text-micro-lg space-y-1">
                 <div>GSTIN: <span className="text-white font-mono">{companyData.gstin}</span></div>
                 <div>Form 20B: <span className="text-white font-mono">{companyData.licences[0].number}</span></div>
                 <div>Form 21B: <span className="text-white font-mono">{companyData.licences[1].number}</span></div>
@@ -162,12 +168,15 @@ export function Footer() {
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
+            {/* "Terms & Conditions" matches the destination page's own h1
+                (app/terms/page.tsx); the previous "Terms of Business" named a
+                document that page does not contain. */}
             <Link href="/terms" className="hover:text-white transition-colors">
-              Terms of Business
+              Terms &amp; Conditions
             </Link>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

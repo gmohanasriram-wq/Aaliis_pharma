@@ -4,7 +4,16 @@ import { cn } from "@/lib/utils";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  /**
+   * `primaryOnDark` / `outlineOnDark` encode what five call sites were already
+   * expressing by overriding colours through `className`: a button sitting on
+   * the slate-900 panels. forest-900 does not carry enough contrast against
+   * slate-900, so the lighter forest-600 is the correct emphasis there — and
+   * that is a property of the surface the button sits on, not of the caller.
+   *
+   * `secondary` and `ghost` had no call sites and are removed.
+   */
+  variant?: "primary" | "outline" | "primaryOnDark" | "outlineOnDark";
   size?: "sm" | "md" | "lg";
   href?: string;
 }
@@ -27,12 +36,12 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const variantStyles = {
       primary:
         "bg-brand-forest-900 text-white hover:bg-brand-forest-800 focus:ring-brand-forest-900 shadow-sm",
-      secondary:
-        "bg-brand-teal-600 text-white hover:bg-brand-teal-700 focus:ring-brand-teal-500 shadow-sm",
       outline:
         "border border-slate-300 bg-white text-slate-800 hover:bg-slate-50 focus:ring-slate-400",
-      ghost:
-        "text-slate-700 hover:bg-slate-100 hover:text-slate-900 focus:ring-slate-300",
+      primaryOnDark:
+        "bg-brand-forest-600 text-white hover:bg-brand-forest-500 focus:ring-brand-forest-400 shadow-sm",
+      outlineOnDark:
+        "border border-slate-700 bg-transparent text-white hover:bg-slate-800 focus:ring-slate-500",
     };
 
     const sizeStyles = {

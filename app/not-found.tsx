@@ -1,19 +1,19 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Package, Home, ArrowRight } from "lucide-react";
+import { Package, Home, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 export default function NotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200/90">
       <div className="max-w-2xl w-full text-center space-y-8">
         <div>
-          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-            404 • Resource Not Found
-          </span>
-          <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+          <Eyebrow>404 • Resource Not Found</Eyebrow>
+          <Heading level="h1" className="mt-3">
             Formulation or Page Record Not Located
-          </h1>
+          </Heading>
           <p className="mt-4 text-base text-slate-600 leading-relaxed max-w-lg mx-auto">
             The requested pharmaceutical formulation monograph or page route does not exist in our active commercial directory, or may have been relocated under our updated product taxonomy.
           </p>

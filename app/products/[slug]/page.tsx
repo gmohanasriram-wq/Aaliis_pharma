@@ -3,8 +3,12 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { productsData, getProductBySlug, getAllProductSlugs } from "@/data/products";
+import { getProductBySlug, getAllProductSlugs } from "@/data/products";
 import { manufacturersData } from "@/data/manufacturers";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { Button } from "@/components/ui/button";
 import {
   Package,
@@ -86,8 +90,8 @@ export default async function ProductDetailPage({
     : undefined;
 
   return (
-    <div className="py-12 sm:py-16 bg-white min-h-screen border-b border-slate-200/90">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section as="div" density="tight" className="min-h-screen">
+      <Container width="medium">
         {/* Navigation & Breadcrumb Header */}
         <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200/80">
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-slate-500">
@@ -159,9 +163,7 @@ export default async function ProductDetailPage({
 
               {/* Monograph Title */}
               <div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
-                  {product.brand_name}
-                </h1>
+                <Heading level="h1">{product.brand_name}</Heading>
                 <p className="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
                   {product.generic_composition}
                 </p>
@@ -248,9 +250,7 @@ export default async function ProductDetailPage({
               {/* Active Composition Breakdown */}
               {product.composition_items && product.composition_items.length > 0 && (
                 <div className="space-y-3">
-                  <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                    Active Formulation Ingredients
-                  </h2>
+                  <Eyebrow as="h2">Active Formulation Ingredients</Eyebrow>
                   <div className="border border-slate-200 rounded-xl overflow-hidden text-xs">
                     {product.composition_items.map((item, idx) => (
                       <div
@@ -273,9 +273,7 @@ export default async function ProductDetailPage({
 
               {/* Commercial Governance & Marketer Dossier */}
               <div className="space-y-3 pt-2">
-                <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                  Commercial Marketer &amp; Sourcing Record
-                </h2>
+                <Eyebrow as="h2">Commercial Marketer &amp; Sourcing Record</Eyebrow>
                 <div className="p-5 rounded-2xl border border-slate-200/90 bg-slate-50/60 space-y-3 text-xs">
                   <div className="flex justify-between items-center">
                     <span className="text-slate-500 font-mono uppercase text-[11px]">Sole Marketer</span>
@@ -332,7 +330,7 @@ export default async function ProductDetailPage({
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }

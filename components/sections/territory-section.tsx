@@ -3,7 +3,12 @@ import Link from "next/link";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Button } from "@/components/ui/button";
 import { companyData } from "@/data/company";
-import { MapPin, Truck, Building2, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Truck, CheckCircle2 } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { Card, CardTitle } from "@/components/ui/card";
 
 export function TerritorySection() {
   const regions = [
@@ -38,19 +43,17 @@ export function TerritorySection() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-white border-b border-slate-200/90 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section id="territory" density="compact">
+      <Container>
 
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6 border-b border-slate-200 pb-8">
           <div>
             <FadeIn direction="up">
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                Logistics &amp; Operational Reach
-              </span>
-              <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
+              <Eyebrow>Logistics &amp; Operational Reach</Eyebrow>
+              <Heading level="h2" className="mt-2">
                 Statewide Distribution Across Tamil Nadu
-              </h2>
+              </Heading>
               <p className="mt-3 text-base text-slate-600 max-w-2xl leading-relaxed">
                 Headquartered in Chennai, {companyData.tradeName} coordinates timely formulation dispatches to licensed wholesale stockists, hospital pharmacies, and PCD franchise partners throughout Tamil Nadu.
               </p>
@@ -75,17 +78,15 @@ export function TerritorySection() {
                     <span className="font-mono text-xs font-bold text-brand-forest-900 tracking-wider">
                       {zone.zone}
                     </span>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-brand-forest-800 font-semibold">
+                    <span className="text-micro-lg font-mono uppercase tracking-wider text-brand-forest-800 font-semibold">
                       {zone.focus}
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3 group-hover:text-brand-forest-900 transition-colors">
-                    {zone.region}
-                  </h3>
+                  <CardTitle className="mb-3">{zone.region}</CardTitle>
 
                   <p className="text-xs text-slate-600 leading-relaxed mb-4">
-                    <strong className="text-slate-800 font-semibold block text-[11px] font-mono uppercase tracking-wider mb-1">
+                    <strong className="text-slate-800 font-semibold block text-micro-lg font-mono uppercase tracking-wider mb-1">
                       Districts Covered:
                     </strong>
                     {zone.keyDistricts}
@@ -94,7 +95,7 @@ export function TerritorySection() {
 
                 <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-500 font-medium">
                   <Truck className="w-3.5 h-3.5 text-brand-forest-700 shrink-0" />
-                  <span className="text-[11px]">{zone.hub}</span>
+                  <span className="text-micro-lg">{zone.hub}</span>
                 </div>
               </div>
             </FadeIn>
@@ -102,7 +103,10 @@ export function TerritorySection() {
         </div>
 
         {/* Territory Allocation Notice */}
-        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-slate-600">
+        <Card
+          variant="note"
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+        >
           <div className="flex items-center gap-2.5">
             <CheckCircle2 className="w-4 h-4 text-brand-forest-800 shrink-0" />
             <span>
@@ -114,13 +118,13 @@ export function TerritorySection() {
             href="/business-enquiry"
             variant="outline"
             size="sm"
-            className="border-slate-300 bg-white hover:bg-slate-100 text-slate-800 font-semibold px-4 py-2 text-xs shrink-0"
+            className="hover:bg-slate-100 font-semibold px-4 py-2 text-xs shrink-0"
           >
             Check Territory Availability
           </Button>
-        </div>
+        </Card>
 
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

@@ -2,8 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Button } from "@/components/ui/button";
-import { companyData } from "@/data/company";
-import { ArrowRight, ShieldCheck, CheckCircle2, FileCheck2, MapPin } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { Card, CardTitle } from "@/components/ui/card";
 
 export function PcdPharmaSection() {
   const workflow = [
@@ -38,18 +42,16 @@ export function PcdPharmaSection() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-white border-b border-slate-200/90 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section>
+      <Container>
 
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
           <FadeIn direction="up">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-              PCD Franchise Framework
-            </span>
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.06] text-balance">
+            <Eyebrow>PCD Franchise Framework</Eyebrow>
+            <Heading level="h2" className="mt-3">
               Pharmaceutical Franchise &amp; Distribution Across Tamil Nadu
-            </h2>
+            </Heading>
             <p className="mt-4 text-base text-slate-600 leading-relaxed">
               We collaborate with qualified stockists, distribution enterprises, and institutional pharmacy networks across Tamil Nadu. Our model is built on product availability, transparent wholesale invoicing, and strict adherence to statutory drug regulations.
             </p>
@@ -64,24 +66,22 @@ export function PcdPharmaSection() {
 
                 <div>
                   <div className="flex items-baseline justify-between mb-4">
-                    <span className="font-mono text-3xl font-black text-slate-300 group-hover:text-brand-forest-900 transition-colors">
+                    <span className="font-mono text-3xl font-black text-slate-500 group-hover:text-brand-forest-900 transition-colors">
                       {item.step}
                     </span>
-                    <span className="text-[10px] font-mono text-brand-forest-800 font-bold uppercase tracking-wider">
+                    <span className="text-micro font-mono text-brand-forest-800 font-bold uppercase tracking-wider">
                       {item.phase}
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 group-hover:text-brand-forest-900 transition-colors">
-                    {item.title}
-                  </h3>
+                  <CardTitle className="mb-2">{item.title}</CardTitle>
 
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-3 border-t border-slate-100 text-[11px] font-mono text-slate-600 font-medium">
+                <div className="mt-6 pt-3 border-t border-slate-100 text-micro-lg font-mono text-slate-600 font-medium">
                   Step 0{idx + 1} of 04
                 </div>
 
@@ -92,13 +92,13 @@ export function PcdPharmaSection() {
 
         {/* Integrated Wholesale Eligibility Dossier & Application Spread */}
         <FadeIn direction="up" delay={0.25}>
-          <div className="rounded-3xl bg-slate-900 text-white p-8 sm:p-12 shadow-xl">
+          <Card variant="dark" className="p-8 sm:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
               <div className="lg:col-span-8 space-y-4">
-                <span className="text-xs font-mono uppercase tracking-widest text-brand-teal-300 font-bold">
+                <Eyebrow size="micro" className="text-brand-teal-300">
                   Statutory Wholesale Requirements
-                </span>
+                </Eyebrow>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                   Eligibility Criteria for PCD Distribution Partners
                 </h3>
@@ -130,9 +130,9 @@ export function PcdPharmaSection() {
               <div className="lg:col-span-4 flex flex-col items-start lg:items-end gap-3">
                 <Button
                   href="/business-enquiry"
-                  variant="primary"
+                  variant="primaryOnDark"
                   size="lg"
-                  className="w-full sm:w-auto bg-brand-forest-600 hover:bg-brand-forest-500 text-white font-bold px-7 py-3.5 text-xs tracking-wider uppercase justify-center"
+                  className="w-full sm:w-auto font-bold px-7 py-3.5 text-xs tracking-wider uppercase justify-center"
                 >
                   <span>Submit Partner Application</span>
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -147,10 +147,10 @@ export function PcdPharmaSection() {
               </div>
 
             </div>
-          </div>
+          </Card>
         </FadeIn>
 
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

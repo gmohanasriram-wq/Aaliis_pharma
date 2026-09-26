@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
-import { PageLoader } from "@/components/motion/page-loader";
-import { CustomCursor } from "@/components/motion/custom-cursor";
 import { companyData } from "@/data/company";
+
+// Inter is the face design-analysis.md §5 specifies for the whole site. It was
+// never actually loaded — the page fell back to Segoe UI, so line breaks
+// varied by visitor OS. next/font self-hosts it and exposes it as a CSS
+// variable for Tailwind's fontFamily.sans to consume.
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://aaliispharma.com"),
@@ -38,8 +47,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: companyData.logoPath,
-        width: 1024,
-        height: 682,
+        width: 612,
+        height: 408,
         alt: `${companyData.tradeName} Logo`,
       },
     ],
@@ -68,7 +77,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body className="min-h-screen flex flex-col font-sans bg-slate-50 text-slate-900 antialiased">
         <a
           href="#main-content"
@@ -76,8 +85,6 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <PageLoader />
-        <CustomCursor />
         <SmoothScroll>
           <Header />
           <main id="main-content" tabIndex={-1} className="flex-1 focus:outline-none">

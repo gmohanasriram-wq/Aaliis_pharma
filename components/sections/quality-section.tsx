@@ -3,6 +3,11 @@ import Link from "next/link";
 import { FadeIn } from "@/components/motion/fade-in";
 import { companyData } from "@/data/company";
 import { ArrowRight, CheckCircle2, FileText, ShieldCheck } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { Card, CardTitle } from "@/components/ui/card";
 
 export function QualitySection() {
   const protocols = [
@@ -37,19 +42,17 @@ export function QualitySection() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-white border-b border-slate-200/90 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section>
+      <Container>
 
         {/* Section Header — Asymmetric Split Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-16 pb-8 border-b border-slate-200/80">
           <div className="lg:col-span-7">
             <FadeIn direction="up">
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                Regulatory Transparency
-              </span>
-              <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08] text-balance">
+              <Eyebrow>Regulatory Transparency</Eyebrow>
+              <Heading level="h2" className="mt-3">
                 Evidence-Based Quality Assurance &amp; Governance
-              </h2>
+              </Heading>
             </FadeIn>
           </div>
           <div className="lg:col-span-5 space-y-3">
@@ -57,7 +60,7 @@ export function QualitySection() {
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
                 We present verifiable manufacturing records and statutory documentation rather than generic marketing claims. Formulations supplied by {companyData.tradeName} adhere to strict statutory oversight across all handling stages.
               </p>
-              <div className="flex items-center gap-2 pt-2 text-[11px] font-mono text-brand-forest-900 uppercase tracking-wider font-semibold">
+              <div className="flex items-center gap-2 pt-2 text-micro-lg font-mono text-brand-forest-900 uppercase tracking-wider font-semibold">
                 <ShieldCheck className="w-3.5 h-3.5 text-brand-forest-700 shrink-0" />
                 <span>FORM 20B/21B AUDIT TRAIL VERIFIED</span>
               </div>
@@ -75,21 +78,19 @@ export function QualitySection() {
                     <span className="font-mono text-xs font-bold text-brand-forest-900 tracking-wider">
                       {item.code}
                     </span>
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-600 font-semibold">
+                    <span className="text-micro font-mono uppercase tracking-wider text-slate-600 font-semibold">
                       {item.focus}
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-3 group-hover:text-brand-forest-900 transition-colors">
-                    {item.title}
-                  </h3>
+                  <CardTitle className="mb-3">{item.title}</CardTitle>
 
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                     {item.details}
                   </p>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-slate-100 flex items-center gap-2 text-[11px] text-slate-500 font-medium">
+                <div className="mt-8 pt-4 border-t border-slate-100 flex items-center gap-2 text-micro-lg text-slate-500 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-brand-forest-700 shrink-0" />
                   <span>Documented Regulatory Standard</span>
                 </div>
@@ -99,7 +100,10 @@ export function QualitySection() {
         </div>
 
         {/* Informational Callout */}
-        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-slate-600">
+        <Card
+          variant="note"
+          className="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+        >
           <div className="flex items-center gap-3">
             <FileText className="w-4 h-4 text-brand-forest-800 shrink-0" />
             <span>
@@ -114,9 +118,9 @@ export function QualitySection() {
             <span>Request Documentation</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
-        </div>
+        </Card>
 
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

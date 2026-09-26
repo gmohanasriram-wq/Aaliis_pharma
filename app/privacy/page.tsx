@@ -2,6 +2,10 @@ import React from "react";
 import type { Metadata } from "next";
 import { companyData } from "@/data/company";
 import { FadeIn } from "@/components/motion/fade-in";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | B2B Commercial Data",
@@ -21,8 +25,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: companyData.logoPath,
-        width: 1024,
-        height: 682,
+        width: 612,
+        height: 408,
         alt: `${companyData.tradeName} Privacy Policy`,
       },
     ],
@@ -37,17 +41,15 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="py-16 sm:py-20 bg-white min-h-screen border-b border-slate-200/90">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <Section as="div" density="compact" className="min-h-screen">
+      <Container width="prose" className="space-y-12">
         {/* Header */}
         <FadeIn direction="up">
           <div className="max-w-2xl">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-              Commercial Data Handling &amp; Confidentiality
-            </span>
-            <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+            <Eyebrow>Commercial Data Handling &amp; Confidentiality</Eyebrow>
+            <Heading level="h1" className="mt-3">
               Privacy Policy
-            </h1>
+            </Heading>
             <p className="mt-3 text-xs sm:text-sm font-mono text-slate-500 uppercase tracking-wider">
               Effective Date: 17 February 2025 • {companyData.legalName}
             </p>
@@ -100,7 +102,7 @@ export default function PrivacyPage() {
             </section>
           </div>
         </FadeIn>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }

@@ -110,10 +110,12 @@ The color palette is built around authentic Aaliis brand colors, medical authori
 
 ## 5. Typography Strategy
 
-- **Font Family:** Inter / System neo-grotesque sans-serif (`font-sans`) with optimized feature settings (`"calt" 1, "rlig" 1`).
+- **Font Family:** Inter, self-hosted via `next/font/google` in `app/layout.tsx` and exposed to Tailwind as `fontFamily.sans`. Feature settings (`"rlig" 1, "calt" 1`) are set on `body` in `app/globals.css`.
+  - *Note:* this previously read "Inter / System neo-grotesque", which the build read as *either* — no web font was ever loaded and every visitor got a system face, so line breaks varied by OS. Inter is now genuinely loaded; the system stack remains only as a fallback.
 - **Hierarchy & Scale:**
   - **Eyebrow / Category Tag:** `text-xs font-bold uppercase tracking-widest text-brand-forest-800`
-  - **Main Hero Headline:** `text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.14]`
+  - **Main Hero Headline:** `text-[2rem] xs:text-[2.5rem] sm:text-4xl md:text-5xl lg:text-[3.75rem] xl:text-[4.5rem] font-black tracking-tight text-slate-900 leading-[1.02] text-balance`
+    - *Recorded from the shipping implementation.* The spec previously specified `text-3xl sm:text-4xl lg:text-5xl font-extrabold … leading-[1.14]`, which the build never used. The shipping hero is larger and heavier and is the strongest element on the page, so the rest of the scale derives from it rather than the reverse.
   - **Section Headings:** `text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-slate-900`
   - **Card Headings:** `text-base sm:text-lg font-bold text-slate-900`
   - **Body Copy:** `text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl`

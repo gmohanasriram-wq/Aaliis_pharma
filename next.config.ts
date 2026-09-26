@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  transpilePackages: ["framer-motion", "lenis"],
+  transpilePackages: ["lenis"],
   images: {
     formats: ["image/avif", "image/webp"],
   },

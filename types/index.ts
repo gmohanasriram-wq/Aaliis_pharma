@@ -95,6 +95,9 @@ export interface Manufacturer {
   quality_reliability_assessment?: QualityAssessment;
   verification_status: VerificationStatus;
   source_notes?: string;
+  gstin?: string;
+  fssai_status?: string;
+  cin?: string;
 }
 
 export type BusinessType =

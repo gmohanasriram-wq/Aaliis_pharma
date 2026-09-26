@@ -4,19 +4,13 @@
 
 @layer base {
   :root {
-    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --brand-navy: #0f2c59;
-    --brand-navy-dark: #0a1b37;
-    --brand-teal: #0d9488;
-    --brand-forest: #006039;
-    --brand-cyan: #02749d;
-    --brand-blue: #1e40af;
-    --brand-amber: #d97706;
+    /* --font-sans was removed. It duplicated the stack that Tailwind's
+       fontFamily.sans now owns (and is fed by --font-inter from next/font). */
+    /* Ten further --brand-* variables were removed here: they were declared but
+       never consumed anywhere. The palette lives in tailwind.config.ts, which is
+       what every call site actually reads. */
     --brand-slate-bg: #f8fafc;
-    --brand-card-bg: #ffffff;
-    --brand-border: #e2e8f0;
     --brand-text-main: #0f172a;
-    --brand-text-muted: #475569;
   }
 
   html {
@@ -57,17 +51,31 @@
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  .preserve-3d {
-    transform-style: preserve-3d;
-  }
-  .backface-hidden {
-    backface-visibility: hidden;
+/* A custom `.text-balance` utility lived here. Tailwind 3.4 ships the same rule
+   from its core textWrap plugin, so the file was emitting two identical
+   `.text-balance { text-wrap: balance }` rules. The core one is kept. */
+
+/**
+ * Reduced motion.
+ *
+ * The site animates through two independent systems, so both need a guard:
+ *
+ *  - CSS — Tailwind `transition-*` / `animate-*` and `scroll-behavior`. Handled here.
+ *  - JavaScript — Framer Motion drives inline styles from rAF, and Lenis hijacks
+ *    wheel/touch scrolling. Neither is reachable from CSS, so those are guarded
+ *    in their own components (hero parallax, FadeIn, SmoothScroll).
+ *
+ * Durations are 0.01ms rather than 0s so that `transitionend` / `animationend`
+ * still fire; anything awaiting those events would otherwise hang.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
   }
 }

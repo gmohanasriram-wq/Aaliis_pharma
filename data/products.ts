@@ -444,6 +444,36 @@ export const productsData: Product[] = [
     verification_status: "verified",
     source_notes: "Marketed by Aaliis Pharmaceuticals. Dietary food supplement.",
   },
+  {
+    id: "glucomyn",
+    slug: "glucomyn",
+    brand_name: "GLUCOMYN",
+    category: "Nutraceuticals & Dietary Supplements",
+    generic_composition:
+      "Boswellia Serrata 200 mg + Glucosamine Sulphate Potassium Chloride 750 mg + Methyl Sulfonyl Methane 200 mg + Chondroitin Sulfate 100 mg + Curcumin (96%) 50 mg + Hyaluronic Acid 10 mg",
+    composition_items: [
+      { ingredient: "Boswellia Serrata", strength: "200 mg" },
+      { ingredient: "Glucosamine Sulphate Potassium Chloride", strength: "750 mg" },
+      { ingredient: "Methyl Sulfonyl Methane", strength: "200 mg" },
+      { ingredient: "Chondroitin Sulfate", strength: "100 mg" },
+      { ingredient: "Curcumin (96%)", strength: "50 mg" },
+      { ingredient: "Hyaluronic Acid", strength: "10 mg" },
+      { ingredient: "Excipients", strength: "q.s." },
+    ],
+    dosage_form: "Tablet",
+    pack_size: "1 × 10 tablets",
+    classification: "Dietary Supplement — Not for Medicinal Use",
+    dosage_or_usage: "As directed by the Dietician.",
+    storage:
+      "Store in a cool, dry & dark place. Protect from direct sunlight & moisture. Keep the product out of reach of children.",
+    marketed_by: "Aaliis Pharmaceuticals",
+    product_image: "/images/products/glucomyn.webp",
+    description:
+      "Joint health and mobility dietary supplement formulated with Glucosamine Sulphate, Boswellia Serrata, MSM, Chondroitin Sulfate, Curcumin (96%), and Hyaluronic Acid.",
+    verification_status: "verified",
+    source_notes:
+      "Marketed by Aaliis Pharmaceuticals. Dietary Supplement — Not for Medicinal Use.",
+  },
 ];
 
 export function getProductBySlug(slug: string): Product | undefined {

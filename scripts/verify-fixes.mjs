@@ -63,12 +63,19 @@ const hasBreadcrumbAria = detailContent.includes('aria-label="Breadcrumb"');
 console.log(" - Breadcrumb aria-label present:", hasBreadcrumbAria);
 if (!hasBreadcrumbAria) throw new Error("Missing breadcrumb aria-label");
 
-// 6. Check Page Loader delay removed
-console.log("\n6. Verifying Page Loader Delay Removed:");
-const loaderContent = fs.readFileSync("components/motion/page-loader.tsx", "utf8");
-const hasBlockingTimer = loaderContent.includes("setTimeout") || loaderContent.includes("sessionStorage");
-console.log(" - Blocking timer removed:", !hasBlockingTimer);
-if (hasBlockingTimer) throw new Error("PageLoader still has blocking timer");
+// 6. Check Page Loader removed entirely
+// It was reduced to `return null` when the blocking delay came out, and has since
+// been deleted along with its mount in app/layout.tsx. Asserting absence is the
+// stronger form of the original check: a loader that does not exist cannot block.
+console.log("\n6. Verifying Page Loader Removed:");
+const loaderPath = "components/motion/page-loader.tsx";
+const loaderGone = !fs.existsSync(loaderPath);
+console.log(" - components/motion/page-loader.tsx absent:", loaderGone);
+if (!loaderGone) throw new Error("PageLoader module still exists");
+const layoutContent = fs.readFileSync("app/layout.tsx", "utf8");
+const stillMounted = layoutContent.includes("PageLoader");
+console.log(" - no PageLoader reference in app/layout.tsx:", !stillMounted);
+if (stillMounted) throw new Error("PageLoader still mounted in app/layout.tsx");
 
 console.log("\n=== ALL AUDIT VERIFICATIONS PASSED SUCCESSFULLY ===");
 

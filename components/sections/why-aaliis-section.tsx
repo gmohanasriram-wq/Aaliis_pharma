@@ -4,7 +4,11 @@ import Image from "next/image";
 import { FadeIn } from "@/components/motion/fade-in";
 import { companyData } from "@/data/company";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 export function WhyAaliisSection() {
   const pillars = [
@@ -29,18 +33,16 @@ export function WhyAaliisSection() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-slate-50 border-b border-slate-200/90 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section tone="muted" className="overflow-hidden">
+      <Container>
 
         {/* Section Header: Large Statement */}
         <div className="max-w-4xl mb-16">
           <FadeIn direction="up">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-              Operational Transparency
-            </span>
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08] text-balance">
-              Built on Statutory Discipline, Documented Quality &amp; Zero Retail Conflicts.
-            </h2>
+            <Eyebrow>Operational Transparency</Eyebrow>
+            <Heading level="h2" className="mt-3">
+              Documented Quality &amp; Zero Retail Conflicts.
+            </Heading>
             <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl">
               We base our business on verifiable statutory credentials, reliable formulation availability, and transparent channel policies—without unverified superlative claims.
             </p>
@@ -55,7 +57,7 @@ export function WhyAaliisSection() {
             <FadeIn direction="up" delay={0.1}>
               <div className="relative w-full max-w-sm flex flex-col items-center">
 
-                <span className="text-[11px] font-mono uppercase tracking-widest text-slate-500 font-bold mb-3 self-start">
+                <span className="text-micro-lg font-mono uppercase tracking-widest text-slate-500 font-bold mb-3 self-start">
                   AUTHENTIC PHYSICAL ASSET • BATCH PACKAGING
                 </span>
 
@@ -75,7 +77,7 @@ export function WhyAaliisSection() {
                     width={340}
                     height={340}
                     sizes="(max-width: 1024px) 100vw, 360px"
-                    className="relative z-10 max-h-68 w-auto object-contain drop-shadow-[0_20px_26px_rgba(15,23,42,0.16)] hover:scale-105 transition-transform duration-300"
+                    className="relative z-10 max-h-64 sm:max-h-72 w-auto object-contain drop-shadow-[0_20px_26px_rgba(15,23,42,0.16)] hover:scale-105 transition-transform duration-300"
                   />
                 </div>
 
@@ -85,10 +87,10 @@ export function WhyAaliisSection() {
                     <span className="font-bold text-slate-900">NERVLIS PLUS</span>
                     <span className="text-slate-500">1 × 2 mL Ampoule</span>
                   </div>
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-micro-lg text-slate-500">
                     Methylcobalamin 1500 mcg + Pyridoxine 100 mg + Nicotinamide 100 mg
                   </p>
-                  <p className="text-[10px] text-slate-600 font-medium">
+                  <p className="text-micro text-slate-600 font-medium">
                     Documented Mfg: A.V.T Formulations • Mkt: Aaliis Pharmaceuticals
                   </p>
                 </div>
@@ -123,7 +125,7 @@ export function WhyAaliisSection() {
                   href="/why-aaliis"
                   variant="outline"
                   size="md"
-                  className="border-slate-300 bg-white hover:bg-slate-100 text-slate-800 font-semibold px-5 py-2.5 text-xs sm:text-sm flex items-center gap-2"
+                  className="hover:bg-slate-100 font-semibold px-5 py-2.5 text-xs sm:text-sm flex items-center gap-2"
                 >
                   <span>Learn More About Our Governance</span>
                   <ArrowRight className="w-4 h-4" />
@@ -135,7 +137,7 @@ export function WhyAaliisSection() {
 
         </div>
 
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

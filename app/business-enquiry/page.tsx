@@ -3,6 +3,10 @@ import type { Metadata } from "next";
 import { companyData } from "@/data/company";
 import { FadeIn } from "@/components/motion/fade-in";
 import { BusinessEnquiryForm } from "@/components/forms/business-enquiry-form";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
   title: "Commercial & PCD Franchise Enquiry",
@@ -22,8 +26,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: companyData.logoPath,
-        width: 1024,
-        height: 682,
+        width: 612,
+        height: 408,
         alt: `${companyData.tradeName} Business Enquiry`,
       },
     ],
@@ -56,17 +60,15 @@ function FormFallback() {
 
 export default function BusinessEnquiryPage() {
   return (
-    <div className="py-16 sm:py-20 bg-white min-h-screen border-b border-slate-200/90">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <Section as="div" density="compact" className="min-h-screen">
+      <Container width="prose" className="space-y-12">
         {/* Header */}
         <FadeIn direction="up">
           <div className="max-w-2xl">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-              Commercial Desk &amp; Distribution Onboarding
-            </span>
-            <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+            <Eyebrow>Commercial Desk &amp; Distribution Onboarding</Eyebrow>
+            <Heading level="h1" className="mt-3">
               Business &amp; Franchise Enquiry
-            </h1>
+            </Heading>
             <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
               Connect with our commercial desk for PCD franchise distribution rights, wholesale rate lists, or institutional hospital supply quotes across Tamil Nadu.
             </p>
@@ -77,9 +79,7 @@ export default function BusinessEnquiryPage() {
         <FadeIn direction="up" delay={0.1}>
           <div className="rounded-2xl border border-slate-200/90 bg-slate-50/50 p-6 sm:p-10 shadow-xs">
             <div className="pb-6 border-b border-slate-200/80">
-              <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                Statutory Trade Application Form
-              </h2>
+              <Eyebrow as="h2">Statutory Trade Application Form</Eyebrow>
               <p className="text-xs text-slate-600 mt-1">
                 Please provide your trade name, location, and licensing profile to expedite order routing and territory checks.
               </p>
@@ -89,7 +89,7 @@ export default function BusinessEnquiryPage() {
             </Suspense>
           </div>
         </FadeIn>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }

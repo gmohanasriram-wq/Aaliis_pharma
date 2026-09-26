@@ -7,8 +7,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { productsData } from "@/data/products";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowUpRight, Pill, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Product } from "@/types";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { Card } from "@/components/ui/card";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 const CATEGORIES = [
   { id: "all", label: "All Formulations" },
@@ -21,6 +27,7 @@ const CATEGORIES = [
 
 export function FeaturedProducts() {
   const [selectedCat, setSelectedCat] = useState("all");
+  const prefersReduced = usePrefersReducedMotion();
 
   // Spotlight flagship product
   const spotlightProduct = useMemo(() => {
@@ -32,28 +39,33 @@ export function FeaturedProducts() {
     let list = productsData.filter((p) => p.id !== spotlightProduct.id);
 
     if (selectedCat !== "all") {
-      list = list.filter((p) => p.category === selectedCat);
+      return list.filter((p) => p.category === selectedCat);
     }
 
-    return list.slice(0, 6);
+    // In 'all' view, showcase the initial selection plus the newly added GLUCOMYN
+    const initialSelection = list.slice(0, 6);
+    const glucomynProduct = list.find((p) => p.id === "glucomyn");
+    if (glucomynProduct && !initialSelection.some((p) => p.id === "glucomyn")) {
+      return [...initialSelection, glucomynProduct];
+    }
+
+    return initialSelection;
   }, [selectedCat, spotlightProduct.id]);
 
   return (
-    <section className="py-20 lg:py-28 bg-slate-50 border-b border-slate-200/90 relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section id="products" density="compact" tone="muted" className="overflow-hidden">
+      <Container>
 
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6 border-b border-slate-200 pb-8">
           <div>
             <FadeIn direction="up">
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                Our Product Portfolio
-              </span>
-              <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.05]">
+              <Eyebrow>Our Product Portfolio</Eyebrow>
+              <Heading level="h2" className="mt-2">
                 Verified Formulations Catalogue
-              </h2>
+              </Heading>
               <p className="mt-3 text-base text-slate-600 max-w-2xl leading-relaxed">
-                A commercial portfolio of 19 formulations manufactured under GMP compliance for licensed retail pharmacies, hospital supply, and PCD franchise stockists.
+                A commercial portfolio of 20 formulations manufactured under GMP compliance for licensed retail pharmacies, hospital supply, and PCD franchise stockists.
               </p>
             </FadeIn>
           </div>
@@ -64,41 +76,14 @@ export function FeaturedProducts() {
                 href="/products"
                 variant="outline"
                 size="md"
-                className="border-slate-300 bg-white hover:bg-slate-100 text-slate-800 hover:border-slate-400 font-semibold px-5 py-2.5 text-sm flex items-center gap-2"
+                className="hover:bg-slate-100 hover:border-slate-400 font-semibold px-5 py-2.5 text-sm flex items-center gap-2"
               >
-                <span>View All 19 Formulations</span>
+                <span>View All 20 Formulations</span>
                 <ArrowRight className="w-4 h-4" />
               </Button>
             </div>
           </FadeIn>
         </div>
-
-        {/* Category Selector */}
-        <FadeIn direction="up" delay={0.12}>
-          <div
-            role="tablist"
-            aria-label="Filter formulations by therapeutic category"
-            className="flex flex-wrap items-center gap-2 mb-10 pb-2 overflow-x-auto"
-          >
-            {CATEGORIES.map((cat) => {
-              const isActive = selectedCat === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setSelectedCat(cat.id)}
-                  className={`px-4 py-2 rounded-lg text-xs font-medium transition-all duration-200 whitespace-nowrap border ${isActive
-                    ? "bg-slate-900 text-white border-slate-900 shadow-sm font-semibold"
-                    : "bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 border-slate-200"
-                    }`}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
-          </div>
-        </FadeIn>
 
         {/* Editorial Layout: Featured Flagship Showcase (Asymmetric 12-col spread) */}
         <FadeIn direction="up" delay={0.15}>
@@ -127,7 +112,7 @@ export function FeaturedProducts() {
                   <span className="text-xs font-mono uppercase tracking-widest text-brand-forest-800 font-bold bg-brand-forest-50 border border-brand-forest-200 px-3 py-1 rounded-full">
                     Featured Formulation
                   </span>
-                  <span className="text-xs font-mono text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+                  <span className="text-xs font-mono text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
                     {spotlightProduct.pack_size}
                   </span>
                 </div>
@@ -164,7 +149,7 @@ export function FeaturedProducts() {
                     href={`/products/${spotlightProduct.slug}`}
                     variant="primary"
                     size="md"
-                    className="bg-brand-forest-900 hover:bg-brand-forest-800 text-white font-bold px-6 py-2.5 text-xs sm:text-sm flex items-center gap-2"
+                    className="font-bold px-6 py-2.5 text-xs sm:text-sm flex items-center gap-2"
                   >
                     <span>View Product Dossier</span>
                     <ArrowRight className="w-4 h-4" />
@@ -174,7 +159,7 @@ export function FeaturedProducts() {
                     href="/business-enquiry"
                     variant="outline"
                     size="md"
-                    className="border-slate-300 text-slate-700 hover:bg-slate-100 font-semibold px-5 py-2.5 text-xs sm:text-sm"
+                    className="text-slate-700 hover:bg-slate-100 font-semibold px-5 py-2.5 text-xs sm:text-sm"
                   >
                     Enquire Stock
                   </Button>
@@ -183,6 +168,41 @@ export function FeaturedProducts() {
               </div>
 
             </div>
+          </div>
+        </FadeIn>
+
+        {/* Portfolio Index Register — rules off the spotlight above from the filterable index below.
+            The category tabs scope the gallery only, so they sit with it rather than above the spotlight. */}
+        <div className="border-t border-slate-200 pt-8">
+          <Eyebrow size="micro" tone="muted">
+            Supporting Formulations
+          </Eyebrow>
+        </div>
+
+        {/* Category Selector — filters the gallery below */}
+        <FadeIn direction="up" delay={0.12}>
+          <div
+            role="tablist"
+            aria-label="Filter formulations by therapeutic category"
+            className="flex flex-wrap items-center gap-2 mt-5 mb-10 pb-2 overflow-x-auto"
+          >
+            {CATEGORIES.map((cat) => {
+              const isActive = selectedCat === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setSelectedCat(cat.id)}
+                  className={`px-4 py-2 rounded-lg text-xs font-medium transition-all duration-200 whitespace-nowrap border ${isActive
+                    ? "bg-slate-900 text-white border-slate-900 shadow-sm font-semibold"
+                    : "bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 border-slate-200"
+                    }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
           </div>
         </FadeIn>
 
@@ -197,19 +217,26 @@ export function FeaturedProducts() {
                 <motion.div
                   key={prod.id}
                   layout
+                  // Cards mount and re-filter as one block, so under reduced
+                  // motion the whole set resolves at once rather than cascading
+                  // in. `initial` is untouched — it renders identically on the
+                  // server and through hydration.
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, delay: idx * 0.05 }}
+                  transition={{
+                    duration: prefersReduced ? 0 : 0.35,
+                    delay: prefersReduced ? 0 : idx * 0.05,
+                  }}
                   className={`group relative flex flex-col justify-between rounded-3xl bg-white border border-slate-200/90 p-7 sm:p-8 shadow-sm hover:border-slate-300 hover:shadow-lg transition-all duration-300 ${isWideFeature ? "md:col-span-2 lg:col-span-2" : "col-span-1"
                     }`}
                 >
-                  <div className={isWideFeature ? "grid grid-cols-1 sm:grid-cols-12 gap-6 items-center" : ""}>
+                  <div className={isWideFeature ? "grid grid-cols-1 sm:grid-cols-12 gap-6 lg:gap-8 items-center md:h-full" : ""}>
 
                     {/* Unboxed Packaging Stage with Realistic Drop Shadows */}
                     <div
                       className={`relative flex items-center justify-center p-4 transition-transform duration-300 group-hover:scale-105 ${isWideFeature
-                        ? "sm:col-span-5 h-56 sm:h-64"
+                        ? "sm:col-span-5 h-56 sm:h-64 md:h-full md:min-h-[300px] md:-translate-y-6"
                         : "h-52 w-full mb-6"
                         }`}
                     >
@@ -228,30 +255,61 @@ export function FeaturedProducts() {
                     </div>
 
                     {/* Metadata & Technical Information */}
-                    <div className={isWideFeature ? "sm:col-span-7 flex flex-col justify-between" : ""}>
-                      <div className="flex items-center justify-between gap-2 mb-3">
-                        <span className="text-[10px] font-mono uppercase tracking-widest text-brand-forest-800 font-bold bg-brand-forest-50 px-2.5 py-1 rounded border border-brand-forest-200">
-                          {prod.category}
-                        </span>
-                        <span className="text-[11px] font-mono text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200/70">
-                          {prod.pack_size}
-                        </span>
+                    <div className={isWideFeature ? "sm:col-span-7 flex flex-col justify-between md:h-full" : ""}>
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <Eyebrow size="micro" className="bg-brand-forest-50 px-2.5 py-1 rounded border border-brand-forest-200">
+                            {prod.category}
+                          </Eyebrow>
+                          <span className="text-micro-lg font-mono text-slate-500 bg-slate-50 px-2 py-0.5 rounded border border-slate-200/70">
+                            {prod.pack_size}
+                          </span>
+                        </div>
+
+                        <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 group-hover:text-brand-forest-900 transition-colors tracking-tight">
+                          {prod.brand_name}
+                        </h3>
+
+                        <p className="mt-2 text-xs sm:text-sm font-medium text-slate-700 leading-relaxed">
+                          {prod.generic_composition}
+                        </p>
+
+                        <p className="mt-2 text-xs text-slate-500 leading-relaxed line-clamp-2">
+                          {prod.description}
+                        </p>
+
+                        {/* Active Formulation Specifications — Verified Technical Ledger (Desktop/Tablet Only) */}
+                        {isWideFeature && prod.composition_items && prod.composition_items.length > 0 && (
+                          <div className="hidden md:block mt-4 pt-3 border-t border-slate-100">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold">
+                                Active Formulation Ingredients
+                              </span>
+                              <span className="text-[10px] font-mono text-brand-forest-700 font-medium">
+                                GMP Verified
+                              </span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2 text-xs">
+                              {prod.composition_items.slice(0, 4).map((item, i) => (
+                                <div
+                                  key={i}
+                                  className="flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-slate-50 border border-slate-200/70"
+                                >
+                                  <span className="font-medium text-slate-800 truncate mr-2 text-[11px]">
+                                    {item.ingredient}
+                                  </span>
+                                  <span className="font-mono text-slate-600 shrink-0 text-[10px] font-semibold">
+                                    {item.strength || item.notes}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
 
-                      <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 group-hover:text-brand-forest-900 transition-colors tracking-tight">
-                        {prod.brand_name}
-                      </h3>
-
-                      <p className="mt-2 text-xs sm:text-sm font-medium text-slate-700 leading-relaxed">
-                        {prod.generic_composition}
-                      </p>
-
-                      <p className="mt-2 text-xs text-slate-500 leading-relaxed line-clamp-2">
-                        {prod.description}
-                      </p>
-
                       {/* Dosage Form & Direct Dossier Navigation */}
-                      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                      <div className="mt-6 md:mt-auto pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                         <span className="font-mono text-slate-600 font-medium">{prod.dosage_form}</span>
                         <Link
                           href={`/products/${prod.slug}`}
@@ -271,31 +329,34 @@ export function FeaturedProducts() {
         </div>
 
         {/* Bottom Editorial Catalogue Access Bar */}
-        <div className="mt-14 p-6 sm:p-8 rounded-3xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+        <Card
+          variant="dark"
+          className="mt-14 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6"
+        >
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-brand-teal-300 font-bold">
+            <Eyebrow size="micro" className="text-brand-teal-300">
               Complete Commercial Portfolio
-            </span>
+            </Eyebrow>
             <h3 className="text-lg sm:text-xl font-bold tracking-tight text-white mt-1">
               Looking for a specific active formulation or packaging size?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-xl">
-              Our 19 commercial formulations encompass analgesics, GI therapies, neurotropic agents, and nutraceutical softgels for wholesale supply across Tamil Nadu.
+              Our 20 commercial formulations encompass analgesics, GI therapies, neurotropic agents, and nutraceutical softgels for wholesale supply across Tamil Nadu.
             </p>
           </div>
 
           <Button
             href="/products"
-            variant="primary"
+            variant="primaryOnDark"
             size="md"
-            className="bg-brand-forest-600 hover:bg-brand-forest-500 text-white font-bold px-6 py-3 text-xs tracking-wider uppercase shrink-0"
+            className="font-bold px-6 py-3 text-xs tracking-wider uppercase shrink-0"
           >
-            <span>Explore All 19 Formulations</span>
+            <span>Explore All 20 Formulations</span>
             <ArrowRight className="w-4 h-4 ml-2 inline" />
           </Button>
-        </div>
+        </Card>
 
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

@@ -115,6 +115,19 @@ export const manufacturersData: Manufacturer[] = [
       "Spelling discrepancy documented: Product packaging for ALFROS states 'Vatatve Healthcare (WHO-GMP)', while supplier invoice documents 'Vatave Healthcare'. Preserved as unmerged pending physical verification.",
   },
   {
+    id: "vtv-formulations",
+    name: "VTV Formulations India Pvt. Ltd.",
+    gstin: "02AAICV0717A1Z1",
+    who_gmp_gmp_status: "WHO-GMP Certified",
+    iso_certifications: "ISO 9001:2015",
+    fssai_status: "FSSAI Certified",
+    cin: "U85300CH2021PTC043673",
+    manufacturing_capabilities: [
+      "Pharmaceutical + Nutraceutical Manufacturing",
+    ],
+    verification_status: "verified",
+  },
+  {
     id: "heliyac-healthcare",
     name: "Heliyac Healthcare Pvt. Ltd.",
     manufacturing_licence: "Pending verification from physical packaging/challans.",

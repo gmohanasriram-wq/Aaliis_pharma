@@ -36,15 +36,6 @@ const config: Config = {
             800: "#115e59",
             900: "#134e4a",
           },
-          blue: {
-            50: "#eff6ff",
-            100: "#dbeafe",
-            500: "#3b82f6",
-            600: "#2563eb",
-            700: "#1d4ed8",
-            800: "#1e40af",
-            900: "#1e3a8a",
-          },
           forest: {
             50: "#f0fdf4",
             100: "#dcfce7",
@@ -71,22 +62,20 @@ const config: Config = {
             900: "#075985",
             950: "#082f49",
           },
-          amber: {
-            50: "#fffbeb",
-            100: "#fef3c7",
-            500: "#f59e0b",
-            600: "#d97706",
-            700: "#b45309",
-          }
         },
       },
       screens: {
         xs: "420px",
       },
       fontFamily: {
+        // Inter is loaded via next/font/google in app/layout.tsx and exposed as
+        // --font-inter. The previous stack interpolated a complete --font-sans
+        // stack from globals.css and then repeated it, which both doubled the
+        // declaration and let a system font win over Inter. This is a single
+        // stack led by the self-hosted face.
         sans: [
-          "var(--font-sans, system-ui)",
-          "Inter",
+          "var(--font-inter)",
+          "system-ui",
           "-apple-system",
           "BlinkMacSystemFont",
           "'Segoe UI'",
@@ -95,6 +84,30 @@ const config: Config = {
           "Arial",
           "sans-serif",
         ],
+        // Previously implicit (Tailwind's default). Declared here so the
+        // dossier's licence-code voice is a deliberate choice: a system stack,
+        // deliberately not a second loaded webfont.
+        mono: [
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          "'Liberation Mono'",
+          "'Courier New'",
+          "monospace",
+        ],
+      },
+      fontSize: {
+        // The dossier's licence-code and metadata register. These shipped as
+        // text-[10px] and text-[11px] at roughly 38 call sites; naming the two
+        // steps stops the arbitrary values.
+        //
+        // No lineHeight is set, deliberately: text-[10px] sets font-size only
+        // and lets line-height inherit, so adding one here would silently
+        // re-space every metadata row on the site.
+        micro: "0.625rem",
+        "micro-lg": "0.6875rem",
       },
       spacing: {
         18: "4.5rem",
@@ -102,15 +115,6 @@ const config: Config = {
       boxShadow: {
         xs: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
         "2xs": "0 1px 1px 0 rgba(0, 0, 0, 0.03)",
-      },
-      animation: {
-        "spin-slow": "spin-slow 24s linear infinite",
-      },
-      keyframes: {
-        "spin-slow": {
-          "0%": { transform: "rotate(0deg)" },
-          "100%": { transform: "rotate(360deg)" },
-        },
       },
     },
   },

@@ -4,6 +4,10 @@ import { companyData } from "@/data/company";
 import { FadeIn } from "@/components/motion/fade-in";
 import { StandardsOverview } from "@/components/sections/standards-overview";
 import { ShieldCheck, FileCheck2, Lock } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
   title: "Why Aaliis | Quality & Regulatory Credibility",
@@ -23,8 +27,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: companyData.logoPath,
-        width: 1024,
-        height: 682,
+        width: 612,
+        height: 408,
         alt: `${companyData.tradeName} Quality Credibility`,
       },
     ],
@@ -42,17 +46,15 @@ export default function WhyAaliisPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Intro & Pillars Section */}
-      <div className="py-16 sm:py-20 border-b border-slate-200/90">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+      <Section as="div" density="compact" tone="none">
+        <Container width="narrow" className="space-y-16">
           {/* Header */}
           <FadeIn direction="up">
             <div className="max-w-3xl">
-              <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-                Institutional Quality &amp; Governance
-              </span>
-              <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+              <Eyebrow>Institutional Quality &amp; Governance</Eyebrow>
+              <Heading level="h1" className="mt-3">
                 Why Partner with {companyData.tradeName}
-              </h1>
+              </Heading>
               <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
                 We provide healthcare distributors, institutional pharmacies, and hospital procurement teams across Tamil Nadu with verified, high-potency formulations backed by transparent regulatory compliance and dependable wholesale supply.
               </p>
@@ -114,8 +116,8 @@ export default function WhyAaliisPage() {
               </div>
             </div>
           </FadeIn>
-        </div>
-      </div>
+        </Container>
+      </Section>
 
       {/* Manufacturing & Standards Section — Renders directly at full width */}
       <StandardsOverview />

@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { Product, PRODUCT_CATEGORIES, ProductCategory } from "@/types";
+import { Product, PRODUCT_CATEGORIES } from "@/types";
 import { ProductCard } from "@/components/products/product-card";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import { Search, Filter, X } from "lucide-react";
@@ -175,8 +175,9 @@ export function ProductGrid({
         </div>
       ) : (
         <StaggerContainer
+          key={`${selectedCategory}-${searchQuery}`}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          staggerChildren={0.05}
+          staggerChildren={0.04}
         >
           {filteredProducts.map((product) => (
             <StaggerItem key={product.id}>

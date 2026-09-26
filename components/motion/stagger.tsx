@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 export interface StaggerContainerProps extends HTMLMotionProps<"div"> {
   staggerChildren?: number;
@@ -17,17 +18,18 @@ export function StaggerContainer({
   children,
   ...props
 }: StaggerContainerProps) {
+  const prefersReduced = usePrefersReducedMotion();
+
   return (
     <motion.div
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
+      animate="visible"
       variants={{
         hidden: {},
         visible: {
           transition: {
-            staggerChildren,
-            delayChildren,
+            staggerChildren: prefersReduced ? 0 : staggerChildren,
+            delayChildren: prefersReduced ? 0 : delayChildren,
           },
         },
       }}
@@ -45,6 +47,8 @@ export interface StaggerItemProps extends HTMLMotionProps<"div"> {
 }
 
 export function StaggerItem({ className, children, ...props }: StaggerItemProps) {
+  const prefersReduced = usePrefersReducedMotion();
+
   return (
     <motion.div
       variants={{
@@ -53,7 +57,7 @@ export function StaggerItem({ className, children, ...props }: StaggerItemProps)
           opacity: 1,
           y: 0,
           transition: {
-            duration: 0.5,
+            duration: prefersReduced ? 0 : 0.5,
             ease: [0.21, 0.47, 0.32, 0.98],
           },
         },

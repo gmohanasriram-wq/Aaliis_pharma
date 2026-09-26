@@ -4,13 +4,17 @@ import { FadeIn } from "@/components/motion/fade-in";
 import { Button } from "@/components/ui/button";
 import { companyData } from "@/data/company";
 import { ArrowRight, PhoneCall, Mail, ShieldCheck, MapPin } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Card } from "@/components/ui/card";
 
 export function CtaSection() {
   return (
-    <section className="py-20 lg:py-28 bg-slate-50 border-b border-slate-200/90">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Section tone="muted">
+      <Container>
         <FadeIn direction="up">
-          <div className="relative overflow-hidden rounded-3xl bg-slate-900 px-8 py-14 sm:px-14 sm:py-20 text-white shadow-xl border border-slate-800">
+          <Card variant="dark" className="relative overflow-hidden px-8 py-14 sm:px-14 sm:py-20">
 
             <div className="relative z-10 max-w-3xl">
 
@@ -19,9 +23,9 @@ export function CtaSection() {
                 <span>COMMERCIAL COLLABORATION</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.08]">
+              <Heading level="h2" tone="inverse">
                 Establish a Dedicated Pharmaceutical Partnership.
-              </h2>
+              </Heading>
 
               <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
                 Whether you operate a licensed retail pharmacy, manage hospital procurement, or seek dedicated PCD franchise distribution rights in your district, our team is ready to coordinate verified formulation supplies.
@@ -31,9 +35,9 @@ export function CtaSection() {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <Button
                   href="/business-enquiry"
-                  variant="primary"
+                  variant="primaryOnDark"
                   size="lg"
-                  className="bg-brand-forest-600 hover:bg-brand-forest-500 text-white font-bold px-7 py-3.5 text-sm tracking-wide shadow-lg shadow-brand-forest-950/40"
+                  className="font-bold px-7 py-3.5 text-sm tracking-wide shadow-lg shadow-brand-forest-950/40"
                 >
                   <span>Submit Business Enquiry</span>
                   <ArrowRight className="w-4 h-4 ml-2 inline" />
@@ -41,9 +45,9 @@ export function CtaSection() {
 
                 <Button
                   href="/pcd-pharma"
-                  variant="outline"
+                  variant="outlineOnDark"
                   size="lg"
-                  className="border-slate-700 bg-transparent text-white hover:bg-slate-800 px-6 py-3.5 text-sm font-semibold"
+                  className="px-6 py-3.5 text-sm font-semibold"
                 >
                   PCD Franchise Model
                 </Button>
@@ -74,9 +78,9 @@ export function CtaSection() {
               </div>
 
             </div>
-          </div>
+          </Card>
         </FadeIn>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
