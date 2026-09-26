@@ -9,6 +9,7 @@ export interface CompanyPartner {
 export interface CompanyExecutive {
   name: string;
   designation: string;
+  phone?: string;
   notes?: string;
 }
 

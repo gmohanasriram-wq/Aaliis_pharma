@@ -4,6 +4,10 @@ import Link from "next/link";
 import { companyData } from "@/data/company";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Building2, FileCheck, Users, ShieldCheck, ArrowRight } from "lucide-react";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 
 export const metadata: Metadata = {
   title: "About Us | Corporate Profile",
@@ -23,8 +27,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: companyData.logoPath,
-        width: 1024,
-        height: 682,
+        width: 612,
+        height: 408,
         alt: `${companyData.tradeName} Logo`,
       },
     ],
@@ -40,17 +44,15 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="py-16 sm:py-20 bg-white min-h-screen border-b border-slate-200/90">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <Section as="div" density="compact" className="min-h-screen">
+      <Container width="narrow" className="space-y-16">
         {/* Header */}
         <FadeIn direction="up">
           <div className="max-w-3xl">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-              Corporate Profile &amp; Governance
-            </span>
-            <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+            <Eyebrow>Corporate Profile &amp; Governance</Eyebrow>
+            <Heading level="h1" className="mt-3">
               About {companyData.tradeName}
-            </h1>
+            </Heading>
             <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
               {companyData.tradeName} is an established pharmaceutical enterprise headquartered in Chennai, operating primarily as a B2B PCD pharma distributor. We supply verified, quality-tested pharmaceutical formulations to pharmacies, hospitals, and licensed distributors across all districts of Tamil Nadu.
             </p>
@@ -60,10 +62,10 @@ export default function AboutPage() {
         {/* Corporate Structure / Architectural Ledger */}
         <FadeIn direction="up" delay={0.1}>
           <div className="space-y-4">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800 flex items-center gap-2">
+            <Eyebrow as="h2" className="flex items-center gap-2">
               <Building2 className="w-4 h-4 text-brand-teal-600" />
               <span>Constitutional &amp; Registration Records</span>
-            </h2>
+            </Eyebrow>
             <dl className="border-t border-b border-slate-200 divide-y sm:divide-y-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:divide-x divide-slate-200">
               <div className="py-5 sm:px-6 first:sm:pl-0">
                 <dt className="text-xs font-mono uppercase tracking-wider text-slate-500">Constitution</dt>
@@ -88,10 +90,10 @@ export default function AboutPage() {
         {/* Drug Licensing Authorities */}
         <FadeIn direction="up" delay={0.15}>
           <div className="space-y-4">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800 flex items-center gap-2">
+            <Eyebrow as="h2" className="flex items-center gap-2">
               <FileCheck className="w-4 h-4 text-brand-teal-600" />
               <span>Drug Licensing Authorities</span>
-            </h2>
+            </Eyebrow>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {companyData.licences.map((licence) => (
                 <div key={licence.type} className="p-6 rounded-2xl border border-slate-200/90 bg-slate-50/60 flex flex-col justify-between">
@@ -113,10 +115,10 @@ export default function AboutPage() {
         {/* Leadership Governance */}
         <FadeIn direction="up" delay={0.2}>
           <div className="space-y-4">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800 flex items-center gap-2">
+            <Eyebrow as="h2" className="flex items-center gap-2">
               <Users className="w-4 h-4 text-brand-teal-600" />
               <span>Governance &amp; Designated Representation</span>
-            </h2>
+            </Eyebrow>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="p-6 rounded-2xl border border-slate-200/90 bg-slate-50/60 space-y-3">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-500 block">Registered Partnership</span>
@@ -134,12 +136,24 @@ export default function AboutPage() {
               <div className="p-6 rounded-2xl border border-slate-200/90 bg-slate-50/60 space-y-3">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-500 block">Commercial Desk</span>
                 <h3 className="font-bold text-slate-900 text-base">Field &amp; Franchise Operations</h3>
-                <p className="text-sm font-semibold text-slate-900">
-                  {companyData.executives[0].name}
-                </p>
-                <p className="text-xs text-slate-600">
-                  {companyData.executives[0].designation}
-                </p>
+                <ul className="divide-y divide-slate-200/80 text-xs text-slate-700">
+                  {companyData.executives.map((executive) => (
+                    <li key={executive.name} className="py-2.5 flex justify-between items-center gap-2">
+                      <div>
+                        <span className="font-medium text-slate-900 block">{executive.name}</span>
+                        {executive.phone && (
+                          <a
+                            href={`tel:${executive.phone.replace(/\s+/g, "")}`}
+                            className="text-brand-forest-700 hover:text-brand-forest-900 font-mono text-[11px] hover:underline"
+                          >
+                            Direct: {executive.phone}
+                          </a>
+                        )}
+                      </div>
+                      <span className="text-slate-500 font-mono text-right">{executive.designation}</span>
+                    </li>
+                  ))}
+                </ul>
                 <p className="text-xs text-slate-500 pt-2 border-t border-slate-200/80">
                   Responsible for district stockist coordination, institutional hospital dispatches, and PCD franchise expansion across Tamil Nadu.
                 </p>
@@ -169,7 +183,7 @@ export default function AboutPage() {
             </Link>
           </div>
         </FadeIn>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }

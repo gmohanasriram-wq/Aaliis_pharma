@@ -41,8 +41,14 @@ export const companyData: CompanyInfo = {
       notes:
         "Official designation documented on visiting card. Must not be published as CEO without verified corporate documentation.",
     },
+    {
+      name: "S. RAGU RAMAN",
+      designation: "Manager",
+      phone: "+91 8072393936",
+      notes: "Commercial operations and institutional management.",
+    },
   ],
-  logoPath: "/images/aaliis-logo.png",
+  logoPath: "/images/branding/aaliis-pharmaceutical-logo.png",
   websitePositioning:
     "B2B PCD pharmaceutical company supplying verified formulations to pharmacies, hospitals, and distributors across Tamil Nadu. Direct-to-patient sales are not conducted.",
 };

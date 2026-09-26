@@ -2,6 +2,10 @@ import React from "react";
 import type { Metadata } from "next";
 import { companyData } from "@/data/company";
 import { FadeIn } from "@/components/motion/fade-in";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
+import { Heading } from "@/components/ui/heading";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { Button } from "@/components/ui/button";
 import {
   MapPin,
@@ -30,8 +34,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: companyData.logoPath,
-        width: 1024,
-        height: 682,
+        width: 612,
+        height: 408,
         alt: `${companyData.tradeName} Contact Desk`,
       },
     ],
@@ -47,17 +51,15 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="py-16 sm:py-20 bg-white min-h-screen border-b border-slate-200/90">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+    <Section as="div" density="compact" className="min-h-screen">
+      <Container width="narrow" className="space-y-16">
         {/* Header */}
         <FadeIn direction="up">
           <div className="max-w-3xl">
-            <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800">
-              Corporate Coordinates &amp; Logistics Desk
-            </span>
-            <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.08]">
+            <Eyebrow>Corporate Coordinates &amp; Logistics Desk</Eyebrow>
+            <Heading level="h1" className="mt-3">
               Contact {companyData.tradeName}
-            </h1>
+            </Heading>
             <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed">
               Connect directly with our central administration, institutional dispatch desk, and regional field operations for wholesale orders, licence verifications, and PCD franchise coordination.
             </p>
@@ -67,10 +69,10 @@ export default function ContactPage() {
         {/* 4 Informational Coordinates Dossiers */}
         <FadeIn direction="up" delay={0.1}>
           <div className="space-y-4">
-            <h2 className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-brand-forest-800 flex items-center gap-2">
+            <Eyebrow as="h2" className="flex items-center gap-2">
               <Building2 className="w-4 h-4 text-brand-teal-600" />
               <span>Direct Office &amp; Regulatory Coordinates</span>
-            </h2>
+            </Eyebrow>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Address Dossier */}
               <div className="p-6 sm:p-7 rounded-2xl border border-slate-200/90 bg-slate-50/60 shadow-xs hover:border-brand-forest-800 transition-colors flex flex-col justify-between">
@@ -152,24 +154,37 @@ export default function ContactPage() {
                         Institutional Coordination
                       </span>
                       <h3 className="text-base font-bold text-slate-900">
-                        Commercial Point of Contact
+                        Commercial Key Personnel
                       </h3>
                     </div>
                   </div>
-                  <div className="mt-4 text-xs sm:text-sm space-y-1">
-                    <p className="font-bold text-slate-900">
-                      {companyData.executives[0].name}
-                    </p>
-                    <p className="text-slate-600 text-xs">
-                      {companyData.executives[0].designation}
-                    </p>
-                    <p className="text-xs text-slate-600 pt-2 leading-relaxed">
-                      Lead contact for district stockist agreements, hospital tender supply, and regional distributor onboarding.
+                  <div className="mt-4 text-xs sm:text-sm space-y-2.5">
+                    {companyData.executives.map((exec) => (
+                      <div key={exec.name} className="space-y-0.5">
+                        <div className="flex items-baseline justify-between gap-2">
+                          <p className="font-bold text-slate-900">{exec.name}</p>
+                          <span className="text-slate-500 font-mono text-[11px]">{exec.designation}</span>
+                        </div>
+                        {exec.phone && (
+                          <div className="flex items-baseline gap-1.5 text-xs">
+                            <span className="text-slate-500 font-mono text-[10px] uppercase">Direct:</span>
+                            <a
+                              href={`tel:${exec.phone.replace(/\s+/g, "")}`}
+                              className="font-mono text-brand-forest-700 hover:text-brand-forest-900 font-medium hover:underline"
+                            >
+                              {exec.phone}
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    <p className="text-xs text-slate-600 pt-2 border-t border-slate-200/80 leading-relaxed">
+                      Lead contacts for district stockist agreements, hospital tender supply, and regional distributor onboarding.
                     </p>
                   </div>
                 </div>
                 <div className="mt-6 pt-3 border-t border-slate-200/80 text-[11px] font-mono text-slate-600">
-                  DESIGNATED COMMERCIAL EXECUTIVE
+                  DESIGNATED COMMERCIAL EXECUTIVES
                 </div>
               </div>
 
@@ -230,7 +245,7 @@ export default function ContactPage() {
             </Button>
           </div>
         </FadeIn>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 }
